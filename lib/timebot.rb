@@ -8,7 +8,6 @@ require 'active_support/core_ext/time'
 require 'active_support/core_ext/time/zones'
 require 'active_support/core_ext/string'
 
-
 TIME_ZONES = [
   'US/Pacific',
   'US/Mountain',
@@ -32,7 +31,7 @@ def do_times(phrase)
   emoji = nil
   begin
     zone_identifier = phrase.split.first.try(:upcase)
-    zone_identifier = zone_identifier[1..99] if zone_identifier[0] == '#' 
+    zone_identifier = zone_identifier[1..99] if zone_identifier[0] == '#'
     puts "ZONE: #{zone_identifier}"
     zone = 'UTC'
     if zone_identifier
@@ -43,7 +42,7 @@ def do_times(phrase)
         end
       end
     end
-    
+
     Time.zone = zone
     Chronic.time_class = Time.zone
     time = Chronic.parse(phrase)
@@ -56,7 +55,7 @@ def do_times(phrase)
         times << "#{local_time.strftime('%I:%M%P')} #{local_time.zone}"
       end
       message = "> #{times.join(' | ')}"
-      
+
       h = time.strftime('%I')
       h = h[1] if h.start_with?('0')
       emoji = ":clock#{h}:"
@@ -78,16 +77,16 @@ module TimeBot
     get '/time' do
       message, emoji = do_times(params[:text])
       status 200
-      
-      reply = { username: 'timelord', icon_emoji: emoji, text: message } 
+
+      reply = { username: 'timelord', icon_emoji: emoji, text: message }
       return reply.to_json
     end
-    
+
     post "/time" do
       message, emoji = do_times(request['text'])
       status 200
-      
-      reply = { username: 'timelord', icon_emoji: emoji, text: message } 
+
+      reply = { username: 'timelord', icon_emoji: emoji, text: message }
       return reply.to_json
     end
   end

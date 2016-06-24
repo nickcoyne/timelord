@@ -1,7 +1,13 @@
-source "https://rubygems.org"
-ruby "2.2.2"
+source 'https://rubygems.org'
+ruby '2.3.1'
 
-gem "sinatra"
+gem 'sinatra'
 gem 'puma'
 gem 'chronic'
 gem 'activesupport'
+gem 'dotenv'
+
+group :development do
+  gem 'minispec'
+  gem 'rubocop'
+end

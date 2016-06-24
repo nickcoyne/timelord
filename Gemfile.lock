@@ -1,29 +1,47 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.3)
+    activesupport (4.2.6)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    ast (2.3.0)
     chronic (0.10.2)
+    coderay (1.1.1)
+    diff-lcs (1.2.5)
+    dotenv (2.1.1)
     i18n (0.7.0)
     json (1.8.3)
-    minitest (5.7.0)
-    puma (2.11.3)
-      rack (>= 1.1, < 2.0)
+    minispec (0.0.5)
+      coderay (~> 1)
+      diff-lcs (~> 1)
+    minitest (5.9.0)
+    parser (2.3.1.2)
+      ast (~> 2.2)
+    powerpack (0.1.1)
+    puma (3.4.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
-    sinatra (1.4.6)
-      rack (~> 1.4)
+    rainbow (2.1.0)
+    rubocop (0.40.0)
+      parser (>= 2.3.1.0, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.8.1)
+    sinatra (1.4.7)
+      rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     thread_safe (0.3.5)
-    tilt (2.0.1)
+    tilt (2.0.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unicode-display_width (1.1.0)
 
 PLATFORMS
   ruby
@@ -31,8 +49,14 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   chronic
+  dotenv
+  minispec
   puma
+  rubocop
   sinatra
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.10.5
+   1.12.5
