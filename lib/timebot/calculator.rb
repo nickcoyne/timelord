@@ -22,18 +22,7 @@ module TimeBot
       message = nil
       emoji = nil
 
-      zone_identifier = phrase.split.first.try(:upcase)
-      zone_identifier = zone_identifier[1..99] if zone_identifier[0] == '#'
-      puts "ZONE: #{zone_identifier}"
-      zone = 'UTC'
-      if zone_identifier
-        TRIGGER_MAP.keys.each do |key|
-          if TRIGGER_MAP[key].include?(zone_identifier)
-            zone = key
-            break
-          end
-        end
-      end
+      zone = zone_from_trigger(phrase.split.first.try(:upcase))
 
       Time.zone = zone
       Chronic.time_class = Time.zone
@@ -42,10 +31,8 @@ module TimeBot
       if time
         puts "Parsed: #{phrase} -> #{time.strftime('%I:%M%P')} #{time.zone}"
         times = []
-        TRIGGER_MAP.keys.each do |zone|
-          z = TZInfo::Timezone.get(zone)
-          local_time = time.in_time_zone(z)
-          times << "#{local_time.strftime('%I:%M%P')} #{local_time.zone}"
+        local_times(time).each do |t|
+          times << "#{t.strftime('%I:%M%P')} #{t.zone}"
         end
         message = "> #{times.join(' | ')}"
 
@@ -57,6 +44,32 @@ module TimeBot
     rescue => e
       p e.message
       [nil, nil]
+    end
+
+    private
+
+    def zone_from_trigger(trigger)
+      zone_identifier = trigger[1..99] if trigger[0] == '#'
+      puts "ZONE: #{zone_identifier}"
+      zone = 'UTC'
+      if zone_identifier
+        TRIGGER_MAP.keys.each do |key|
+          if TRIGGER_MAP[key].include?(zone_identifier)
+            zone = key
+            break
+          end
+        end
+      end
+      zone
+    end
+
+    def local_times(time)
+      times = []
+      TRIGGER_MAP.keys.each do |zone|
+        z = TZInfo::Timezone.get(zone)
+        times << time.in_time_zone(z)
+      end
+      times
     end
   end
 end

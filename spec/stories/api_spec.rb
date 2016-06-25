@@ -39,6 +39,5 @@ describe 'TimeBot::Api::Story', :story do
               '09:25am COT | 04:25pm CEST | 02:25am NZST'
       })
     end
-
   end
 end

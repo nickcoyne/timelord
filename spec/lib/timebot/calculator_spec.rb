@@ -33,5 +33,17 @@ describe TimeBot::Calculator, :unit do
         ]
       end
     end
+
+    context 'zone only' do
+      # it 'returns current time in zones' do
+      #   timebot.do_times(
+      #     '#E'
+      #   ).must_equal [
+      #     '> 07:25am PDT | 08:25am MDT | 09:25am CDT | 10:25am EDT | ' \
+      #     '09:25am COT | 04:25pm CEST | 02:25am NZST',
+      #     ':clock10:'
+      #   ]
+      # end
+    end
   end
 end
