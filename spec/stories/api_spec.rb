@@ -36,7 +36,7 @@ describe 'TimeBot::Api::Story', :story do
         username: 'timelord',
         icon_emoji: ':clock10:',
         text: '> 07:25am PDT | 08:25am MDT | 09:25am CDT | 10:25am EDT | ' \
-              '03:25pm BST | 04:25pm CEST'
+              '09:25am COT | 04:25pm CEST | 02:25am NZST'
       })
     end
 

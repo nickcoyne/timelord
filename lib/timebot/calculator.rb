@@ -10,8 +10,10 @@ module TimeBot
       'US/Mountain' => %w(MDT MST MOUNTAIN M #M),
       'US/Central' => %w(CDT CST CENTRAL C #C),
       'US/Eastern' => %w(EDT EST EASTERN E #E),
-      'Europe/London' => %w(BST B #B L LONDON),
-      'Europe/Madrid' => %w(CEST CE #CE)
+      'America/Bogota' => %w(COT #CO),
+      # 'Europe/London' => %w(BST B #B L LONDON),
+      'Europe/Madrid' => %w(CEST CE CET #CE),
+      'Pacific/Auckland' => %w(NZDT NZST #NZ)
     }.freeze
 
     def do_times(phrase)

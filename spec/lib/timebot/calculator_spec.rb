@@ -16,7 +16,7 @@ describe TimeBot::Calculator, :unit do
           '10:25'
         ).must_equal [
           '> 03:25am PDT | 04:25am MDT | 05:25am CDT | 06:25am EDT | ' \
-          '11:25am BST | 12:25pm CEST',
+          '05:25am COT | 12:25pm CEST | 10:25pm NZST',
           ':clock10:'
         ]
       end
@@ -28,7 +28,7 @@ describe TimeBot::Calculator, :unit do
           '#E 10:25'
         ).must_equal [
           '> 07:25am PDT | 08:25am MDT | 09:25am CDT | 10:25am EDT | ' \
-          '03:25pm BST | 04:25pm CEST',
+          '09:25am COT | 04:25pm CEST | 02:25am NZST',
           ':clock10:'
         ]
       end
