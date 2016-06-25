@@ -6,14 +6,14 @@ require 'active_support/core_ext/string'
 module TimeBot
   class Calculator
     TRIGGER_MAP = {
-      'US/Pacific' => %w(PDT PST PACIFIC P #P),
-      'US/Mountain' => %w(MDT MST MOUNTAIN M #M),
-      'US/Central' => %w(CDT CST CENTRAL C #C),
-      'US/Eastern' => %w(EDT EST EASTERN E #E),
-      'America/Bogota' => %w(COT #CO),
+      'US/Pacific' => %w(PDT PST PACIFIC P),
+      'US/Mountain' => %w(MDT MST MOUNTAIN M),
+      'US/Central' => %w(CDT CST CENTRAL C),
+      'US/Eastern' => %w(EDT EST EASTERN E),
+      'America/Bogota' => %w(COT CO),
       # 'Europe/London' => %w(BST B #B L LONDON),
-      'Europe/Madrid' => %w(CEST CE CET #CE),
-      'Pacific/Auckland' => %w(NZDT NZST #NZ)
+      'Europe/Madrid' => %w(CEST CET CE),
+      'Pacific/Auckland' => %w(NZDT NZST NZ)
     }.freeze
 
     def do_times(phrase)
@@ -46,7 +46,7 @@ module TimeBot
       [nil, nil]
     end
 
-    private
+    # private
 
     def zone_from_trigger(trigger)
       zone_identifier = trigger[1..99] if trigger[0] == '#'

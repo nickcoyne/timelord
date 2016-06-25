@@ -23,12 +23,22 @@ describe TimeBot::Calculator, :unit do
     end
 
     context 'time with zone' do
-      it 'returns time offset from zone time' do
+      it 'returns time offset from zone time (EST)' do
         timebot.do_times(
           '#E 10:25'
         ).must_equal [
           '> 07:25am PDT | 08:25am MDT | 09:25am CDT | 10:25am EDT | ' \
           '09:25am COT | 04:25pm CEST | 02:25am NZST',
+          ':clock10:'
+        ]
+      end
+
+      it 'returns time offset from zone time (NZDT)' do
+        timebot.do_times(
+          '#NZ 10:25'
+        ).must_equal [
+          '> 03:25pm PDT | 04:25pm MDT | 05:25pm CDT | 06:25pm EDT | ' \
+          '05:25pm COT | 12:25am CEST | 10:25am NZST',
           ':clock10:'
         ]
       end

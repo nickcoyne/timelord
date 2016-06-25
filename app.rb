@@ -2,7 +2,7 @@ require 'bundler/setup'
 require 'dotenv'
 require 'sinatra'
 require 'json'
-require 'timebot/calculator'
+require 'time_bot/calculator'
 
 Dotenv.load
 
