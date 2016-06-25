@@ -6,70 +6,63 @@ require 'active_support/core_ext/string'
 module TimeBot
   class Calculator
     TRIGGER_MAP = {
-      'US/Pacific' => %w(PDT PST PACIFIC P),
-      'US/Mountain' => %w(MDT MST MOUNTAIN M),
-      'US/Central' => %w(CDT CST CENTRAL C),
-      'US/Eastern' => %w(EDT EST EASTERN E),
-      'America/Bogota' => %w(COT CO),
-      # 'Europe/London' => %w(BST B #B L LONDON),
-      'Europe/Madrid' => %w(CEST CET CE),
-      'Pacific/Auckland' => %w(NZDT NZST NZ)
+      p: 'US/Pacific',
+      m: 'US/Mountain',
+      c: 'US/Central',
+      e: 'US/Eastern',
+      co: 'America/Bogota',
+      # b: 'Europe/London',
+      ce: 'Europe/Madrid',
+      nz: 'Pacific/Auckland'
     }.freeze
 
-    def do_times(phrase)
+    def time_in_zones(phrase)
       return [nil, nil] if phrase.blank?
 
-      message = nil
-      emoji = nil
+      zone = zone_from_trigger(phrase.split.first.try(:downcase))
+      source_time = (phrase.split.length > 1 ? phrase.split.last : nil)
+      time = time_in_source_zone(zone, source_time)
 
-      zone = zone_from_trigger(phrase.split.first.try(:upcase))
-
-      Time.zone = zone
-      Chronic.time_class = Time.zone
-      time = Chronic.parse(phrase.split.last)
-
-      if time
-        puts "Parsed: #{phrase} -> #{time.strftime('%I:%M%P')} #{time.zone}"
-        times = []
-        local_times(time).each do |t|
-          times << "#{t.strftime('%I:%M%P')} #{t.zone}"
-        end
-        message = "> #{times.join(' | ')}"
-
-        h = time.strftime('%I')
-        h = h[1] if h.start_with?('0')
-        emoji = ":clock#{h}:"
-      end
-      [message, emoji]
+      formatted_response(time)
     rescue => e
       p e.message
       [nil, nil]
     end
 
-    # private
+    private
 
     def zone_from_trigger(trigger)
       zone_identifier = trigger[1..99] if trigger[0] == '#'
-      puts "ZONE: #{zone_identifier}"
-      zone = 'UTC'
-      if zone_identifier
-        TRIGGER_MAP.keys.each do |key|
-          if TRIGGER_MAP[key].include?(zone_identifier)
-            zone = key
-            break
-          end
-        end
-      end
-      zone
+      # puts "ZONE: #{zone_identifier}"
+      TRIGGER_MAP[zone_identifier.try(:to_sym)]
+    end
+
+    def time_in_source_zone(zone, time_string)
+      return nil unless zone
+
+      Time.zone = zone
+      Chronic.time_class = Time.zone
+      Chronic.parse(time_string || Time.now.strftime('%I:%M%P'))
+    end
+
+    def formatted_response(time)
+      return [nil, nil] unless time
+
+      ["> #{local_times(time).join(' | ')}", emoji(time)]
     end
 
     def local_times(time)
-      times = []
-      TRIGGER_MAP.keys.each do |zone|
+      TRIGGER_MAP.values.each_with_object([]) do |zone, times|
         z = TZInfo::Timezone.get(zone)
-        times << time.in_time_zone(z)
+        t = time.in_time_zone(z)
+        times << "#{t.strftime('%I:%M%P')} #{t.zone}"
       end
-      times
+    end
+
+    def emoji(time)
+      h = time.strftime('%I')
+      h = h[1] if h.start_with?('0')
+      ":clock#{h}:"
     end
   end
 end

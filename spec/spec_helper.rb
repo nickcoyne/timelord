@@ -12,6 +12,7 @@ require 'minitest/autorun'
 require 'minitest/rg'
 require 'mocha/mini_test'
 require 'minitest-spec-context'
+require 'timecop'
 
 # Load the sinatra application
 require_relative '../app'

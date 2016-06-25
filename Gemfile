@@ -23,4 +23,5 @@ group :test do
   gem 'multi_json'
   gem 'rack-test', require: 'rack/test'
   gem 'rake'
+  gem 'timecop'
 end
