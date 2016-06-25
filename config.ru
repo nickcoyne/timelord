@@ -1,4 +1,5 @@
 $LOAD_PATH << './lib'
-require 'timebot'
 
-run TimeBot::Web
+require './app'
+
+run TimeBot::Api
