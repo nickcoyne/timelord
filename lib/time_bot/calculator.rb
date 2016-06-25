@@ -42,7 +42,7 @@ module TimeBot
 
       Time.zone = zone
       Chronic.time_class = Time.zone
-      Chronic.parse(time_string || Time.now.strftime('%I:%M%P'))
+      Chronic.parse(time_string || Time.zone.now.strftime('%I:%M%P'))
     end
 
     def formatted_response(time)

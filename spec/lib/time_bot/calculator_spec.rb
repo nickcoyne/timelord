@@ -34,7 +34,7 @@ describe TimeBot::Calculator, :unit do
 
     context 'zone only' do
       it 'returns current time in zones' do
-        Timecop.freeze('2016-06-25 17:30') do
+        Timecop.freeze('2016-06-25 17:30 -0400') do
           timebot.time_in_zones(
             '#E'
           ).must_equal [
