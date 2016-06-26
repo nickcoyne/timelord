@@ -11,7 +11,8 @@ module TimeBot
       c: 'US/Central',
       e: 'US/Eastern',
       co: 'America/Bogota',
-      # b: 'Europe/London',
+      b: 'Europe/London',
+      utc: 'UTC',
       ce: 'Europe/Madrid',
       nz: 'Pacific/Auckland'
     }.freeze
@@ -34,7 +35,7 @@ module TimeBot
     def zone_from_trigger(trigger)
       zone_identifier = trigger[1..99] if trigger[0] == '#'
       # puts "ZONE: #{zone_identifier}"
-      TRIGGER_MAP[zone_identifier.try(:to_sym)]
+      available_zones[zone_identifier.try(:to_sym)]
     end
 
     def time_in_source_zone(zone, time_string)
@@ -52,7 +53,7 @@ module TimeBot
     end
 
     def local_times(time)
-      TRIGGER_MAP.values.each_with_object([]) do |zone, times|
+      available_zones.values.each_with_object([]) do |zone, times|
         z = TZInfo::Timezone.get(zone)
         t = time.in_time_zone(z)
         times << "#{t.strftime('%I:%M%P')} #{t.zone}"
@@ -63,6 +64,16 @@ module TimeBot
       h = time.strftime('%I')
       h = h[1] if h.start_with?('0')
       ":clock#{h}:"
+    end
+
+    # Limit returned zones to those in the TIMELORD_ZONES env var.
+    # eg. TIMELORD_ZONES=p,m,c,e,co,ce,nz
+    def available_zones
+      @available_zones ||= (
+        zones = ENV['TIMELORD_ZONES'].try(:split, ',')
+        zones ||= TRIGGER_MAP.keys
+        TRIGGER_MAP.slice(*zones.map(&:to_sym))
+      )
     end
   end
 end
