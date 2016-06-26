@@ -1,6 +1,3 @@
-# TimeLord by [Baremetrics](https://baremetrics.com)
-_[Baremetrics](https://baremetrics.com) provides one-click analytics & insights for Stripe. **[Get started today!](https://baremetrics.com)**_
-
 ## Overview
 
 TimeLord is a lightweight Sinatra app that provides [Slack](http://slack.com/). Once setup, you can type `#e,#p,#m,or #c` in your Slack channel and TimeLord will post the time in various time zones.
@@ -15,6 +12,10 @@ At [Baremetrics](https://baremetrics.com), we're a distributed team (spanning si
 
 TimeLord uses a Slack [Outgoing WebHooks](https://slack.com/services/new/outgoing-webhook) integration for catching the `#e,#p,#m,or #c` request and firing it to your TimeLord service. You'll need to [add a new Outgoing WebHook](https://slack.com/services/new/outgoing-webhook) first so you'll have the `SLACK_TOKEN` available for the actual TimeLord deployment steps below.
 
+### Enabled zones
+
+Use the `TIMELORD_ZONES` environment variable to set which zones you would like to appear in the response. Eg. `e,p,m,c`
+
 ### Deployment
 
 #### Local
@@ -22,6 +23,7 @@ TimeLord uses a Slack [Outgoing WebHooks](https://slack.com/services/new/outgoin
 ```
 $ bundle install
 $ export SLACK_TOKEN=...
+$ export TIMELORD_ZONES=...
 $ foreman start
 ```
 
@@ -30,15 +32,15 @@ $ foreman start
 ```
 $ heroku create
 $ heroku config:set SLACK_TOKEN=...
+$ heroku config:set TIMELORD_ZONES=...
 $ git push heroku master
 ```
 
 ### WebHook Settings
 
-Once your TimeLord applitimeion has been deployed you'll need to go back to your Outgoing Webhook page and update the Integration Settings. Generally speaking you'll want to use settings like these (adjust as necessary):
+Once your TimeLord application has been deployed you'll need to go back to your Outgoing Webhook page and update the Integration Settings. Generally speaking you'll want to use settings like these (adjust as necessary):
 
 * Channel: `Any`
-* Trigger Word: `#time`
-* URL: `http://slack-TimeLord-123.herokuapp.com/time` (the `/time` endpoint is mandatory)
+* Trigger Word: `#e,#p,#m,#c`
+* URL: `https://slack-TimeLord-123.herokuapp.com/time` (the `/time` endpoint is mandatory)
 * Label: `TimeLord`
-
