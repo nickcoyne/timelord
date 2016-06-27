@@ -3,3 +3,6 @@ rvm:
   - 2.3.1
 script:
   - bundle exec rake spec --trace
+addons:
+  code_climate:
+    repo_token: 05e6181e829d44158b8d0f4f76d7bb2bbb91028d870213f41d2ad125fa5e98a6
