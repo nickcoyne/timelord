@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/nickcoyne/timelord/badges/gpa.svg)](https://codeclimate.com/github/nickcoyne/timelord) [![Test Coverage](https://codeclimate.com/github/nickcoyne/timelord/badges/coverage.svg)](https://codeclimate.com/github/nickcoyne/timelord/coverage)
+[![Build Status](https://travis-ci.org/nickcoyne/timelord.svg?branch=master)](https://travis-ci.org/nickcoyne/timelord) [![Code Climate](https://codeclimate.com/github/nickcoyne/timelord/badges/gpa.svg)](https://codeclimate.com/github/nickcoyne/timelord) [![Test Coverage](https://codeclimate.com/github/nickcoyne/timelord/badges/coverage.svg)](https://codeclimate.com/github/nickcoyne/timelord/coverage)
 
 
 ## Overview
