@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/nickcoyne/timelord/badges/gpa.svg)](https://codeclimate.com/github/nickcoyne/timelord) [![Test Coverage](https://codeclimate.com/github/nickcoyne/timelord/badges/coverage.svg)](https://codeclimate.com/github/nickcoyne/timelord/coverage)
+
+
 ## Overview
 
 TimeLord is a lightweight Sinatra app that provides [Slack](http://slack.com/). Once setup, you can type `#e,#p,#m,or #c` in your Slack channel and TimeLord will post the time in various time zones.

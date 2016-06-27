@@ -15,7 +15,7 @@ group :development do
 end
 
 group :test do
-  # gem "codeclimate-test-reporter", require: false
+  gem 'codeclimate-test-reporter', require: false
   gem 'minitest', require: 'minitest/autorun'
   gem 'minitest-rg'
   gem 'minitest-spec-context'
