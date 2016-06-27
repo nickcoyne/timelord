@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'sinatra'
-gem 'puma'
 gem 'chronic'
 gem 'activesupport'
 gem 'dotenv'
@@ -11,7 +10,12 @@ gem 'dotenv'
 group :development do
   gem 'better_errors'
   gem 'foreman'
+  gem 'puma'
   gem 'rubocop'
+end
+
+group :production do
+  gem 'puma'
 end
 
 group :test do
